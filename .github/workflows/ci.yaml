@@ -18,6 +18,8 @@ name: Compiler CI
 
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#on
 on:
+  workflow_dispatch:
+  
   push:
     branches: [ master ]
   pull_request:
