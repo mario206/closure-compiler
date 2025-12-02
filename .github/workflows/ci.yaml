@@ -46,7 +46,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: zulu
-          java-version: '11'
+          java-version: '17'
           java-package: jdk
           architecture: x64
           
@@ -55,7 +55,7 @@ jobs:
         uses: android-actions/setup-android@v3
         with:
           # 解决 java.lang.UnsupportedClassVersionError，确保使用 Java 17
-          java-version: '11' 
+          java-version: '17' 
           # 安装您的项目所需的 API Level 32
           android-version: '32' 
           # 确保 build-tools 也安装了相应版本（如果需要）
