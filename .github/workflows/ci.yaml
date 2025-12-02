@@ -49,33 +49,32 @@ jobs:
           java-version: '11'
           java-package: jdk
           architecture: x64
-      # 2. 核心步骤：使用 sdkmanager 手动安装 API 32
-      - name: Manual Install Android API 32
-        # 注意：这里使用 ANDROID_HOME 环境变量指向 SDK 根目录
+
+          # 2. 核心步骤：使用 sdkmanager 手动安装 API 32
+      # 必须使用 Java 17+ 来运行 sdkmanager
+      - name: Manual Install Android API 32 (Requires Java 17+)
         run: |
-          # 检查 ANDROID_HOME 变量是否已设置 (Runner 预设)
-          echo "ANDROID_HOME is set to: $ANDROID_HOME"
-
-          # 定义 sdkmanager 的完整路径
-          SDK_MANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
-
-          # 确保 sdkmanager 存在
-          if [ ! -f "$SDK_MANAGER" ]; then
-              echo "Error: sdkmanager not found at $SDK_MANAGER"
-              exit 1
+          # 找出 Java 17 的路径 (Runner 预装了多种 Java 版本)
+          # 或者，我们可以临时设置 JAVA_HOME
+          # 注意：ubuntu-latest 预装了 Java 17，路径通常是 /usr/lib/jvm/temurin-17-jdk/
+          JAVA_17_HOME="/usr/lib/jvm/temurin-17-jdk"
+          
+          # 检查 Java 17 路径是否存在
+          if [ -d "$JAVA_17_HOME" ]; then
+              # 临时设置 JAVA_HOME 到 Java 17，只对这个 run 块有效
+              export JAVA_HOME="$JAVA_17_HOME"
+              echo "Temporarily set JAVA_HOME to Java 17: $JAVA_HOME"
+          else
+              echo "Error: Java 17 not found at $JAVA_17_HOME. Installation may fail."
           fi
 
-          # 接受许可证 (如果这是第一次安装，这是必需的)
-          # 使用 'yes' 管道自动接受所有许可证
-          echo "Accepting Android SDK licenses..."
+          # 定义 sdkmanager 的完整路径 (依赖于 $ANDROID_HOME)
+          SDK_MANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+
+          # 运行 sdkmanager (现在它会使用 Java 17 运行)
+          echo "Running sdkmanager with Java 17..."
           yes | "$SDK_MANAGER" --licenses || true
-          
-          # 安装 'platforms;android-32' (API Level 32)
-          echo "Installing Android Platform 32..."
           "$SDK_MANAGER" "platforms;android-32"
-          
-          # 安装一个兼容的 Build Tools (通常也是必需的)
-          echo "Installing Build Tools 32.0.0..."
           "$SDK_MANAGER" "build-tools;32.0.0"
           
         # Clone closure-compiler repo from the commit under test into current directory.
