@@ -49,6 +49,17 @@ jobs:
           java-version: '11'
           java-package: jdk
           architecture: x64
+          
+             # 重点：使用 android-actions/setup-android@v3 来设置环境和安装 SDK
+      - name: Set up Android SDK and Java 17, and install API Level 32
+        uses: android-actions/setup-android@v3
+        with:
+          # 解决 java.lang.UnsupportedClassVersionError，确保使用 Java 17
+          java-version: '17' 
+          # 安装您的项目所需的 API Level 32
+          android-version: '32' 
+          # 确保 build-tools 也安装了相应版本（如果需要）
+          # build-tools-version: '34.0.0' # 示例，根据您的项目需求调整   
 
         # 推荐：使用专用的 Action 来安装 Android 组件
       - name: Install Android API Level 32 automatically
