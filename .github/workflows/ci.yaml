@@ -73,7 +73,7 @@ jobs:
         # storage.
       - name: Share Unshaded Compiler
         # https://github.com/marketplace/actions/upload-a-build-artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: unshaded_compiler
           path: ${{ env.UNSYMLINK_DIR }}/compiler_uberjar_deploy.jar
@@ -85,7 +85,7 @@ jobs:
       - name: Share Snapshot Bundles
         # https://github.com/marketplace/actions/upload-a-build-artifact
         if: ${{ github.event_name == 'schedule' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: snapshot_bundles
           path: ${{ env.UNSYMLINK_DIR }}/*_bundle.jar
