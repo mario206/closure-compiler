@@ -66,7 +66,7 @@ jobs:
           repository-cache: true
 
       - name: Build
-        run: unset ANDROID_HOME && bazelisk build //:all
+        run: unset ANDROID_HOME && bazelisk build //:compiler_uberjar_deploy.jar
 
       - name: Unsymlink Bazel Artifacts
         # upload-artifact doesn't support paths with symlinks
