@@ -977,11 +977,14 @@ public class CommandLineRunner extends AbstractCommandLineRunner<Compiler, Compi
     private void parse(List<String> args) throws CmdLineException {
       parser.parseArgument(args);
 
-      compilationLevelParsed = CompilationLevel.fromString(Ascii.toUpperCase(compilationLevel));
+      //compilationLevelParsed = CompilationLevel.fromString(Ascii.toUpperCase(compilationLevel));
+      compilationLevelParsed = CompilationLevel.SIMPLE_OPTIMIZATIONS; //强制写死
+
+      /*
       if (compilationLevelParsed == null) {
         throw new CmdLineException(
             parser, "Bad value for --compilation_level: " + compilationLevel);
-      }
+      }*/
 
       instrumentCodeParsed =
           InstrumentOption.fromString(Ascii.toUpperCase(instrumentForCoverageOption));
