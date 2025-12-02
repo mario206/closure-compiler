@@ -51,9 +51,7 @@ jobs:
           architecture: x64
 
       - name: Install Android API 32
-        uses: android-actions/setup-android@v3
-        with:
-          api-level: 32
+        uses: android-actions/setup-android@v2
           
         # Clone closure-compiler repo from the commit under test into current directory.
       - name: Checkout Current closure-compiler Commit
