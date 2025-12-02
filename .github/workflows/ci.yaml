@@ -51,8 +51,7 @@ jobs:
           architecture: x64
 
       - name: Install Android API 32
-          # 使用最新的 v4 版本
-        uses: android-actions/setup-android@v4 
+        uses: android-actions/setup-android@v3
         with:
           api-level: 32
           
