@@ -49,7 +49,21 @@ jobs:
           java-version: '11'
           java-package: jdk
           architecture: x64
-          
+
+      # 步骤 1: 显式设置 ANDROID_HOME 环境变量
+      - name: Set ANDROID_HOME for SDK Tools
+        run: |
+          # GitHub Runner 预装 Android SDK 的标准路径
+          echo "ANDROID_HOME=/usr/local/lib/android/sdk" >> $GITHUB_ENV
+    
+      # 步骤 2: 确认 ANDROID_HOME 已经设置并安装 API Level 32
+      - name: Install Android API Level 32
+        # 依赖于上一步设置的 $ANDROID_HOME
+        run: |
+          echo "Using SDK path: $ANDROID_HOME"
+          # 使用 sdkmanager 安装 platforms;android-32
+          yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-32"
+    
         # Clone closure-compiler repo from the commit under test into current directory.
       - name: Checkout Current closure-compiler Commit
         # https://github.com/marketplace/actions/checkout
