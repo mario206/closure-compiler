@@ -455,12 +455,14 @@ final class RenameVars implements CompilerPass {
       String newName;
       if (a.isLocal) {
         // For local variable, we make the assignment right away.
-        newName = localNameGenerator.generateNextName();
+        //newName = localNameGenerator.generateNextName();
+        newName = a.oldName;
         finalizeNameAssignment(a, newName);
       } else {
         // For non-local variable, delay finalizing the name assignment
         // until we know how many new names we'll have of length 2, 3, etc.
-        newName = globalNameGenerator.generateNextName();
+        //newName = globalNameGenerator.generateNextName();
+        newName = a.oldName;
         pendingAssignments.add(a);
         generatedNamesForAssignments.add(newName);
       }
