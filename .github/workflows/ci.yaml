@@ -55,7 +55,7 @@ jobs:
         uses: actions/checkout@v4
 
       # https://github.com/bazelbuild/setup-bazelisk
-      - uses: bazelbuild/setup-bazelisk@v2
+      - uses: bazelbuild/setup-bazelisk@v3
 
       - name: Build and Test
         run: bazelisk build //:compiler_uberjar_deploy.jar
