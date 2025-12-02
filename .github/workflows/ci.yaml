@@ -58,7 +58,7 @@ jobs:
       # https://github.com/bazelbuild/setup-bazelisk
       - uses: bazelbuild/setup-bazelisk@v2
         with:
-          use-tool-cache: false
+          use-tool-cache: false
 
       - name: Build and Test
         run: bazelisk test //:all
