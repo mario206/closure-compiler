@@ -2112,7 +2112,7 @@ public class CompilerOptions implements Serializable {
     //this.removeUnusedPrototypeProperties = enabled;
     // InlineSimpleMethods makes similar assumptions to
     // RemoveUnusedCode, so they are enabled together.
-    t//his.inlineGetters = enabled;
+    //this.inlineGetters = enabled;
   }
 
   public void setCollapseVariableDeclarations(boolean enabled) {
