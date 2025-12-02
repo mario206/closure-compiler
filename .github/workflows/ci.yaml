@@ -49,6 +49,14 @@ jobs:
           java-version: '11'
           java-package: jdk
           architecture: x64
+          
+      # 重点：使用 SDK manager 安装 API Level 32
+      - name: Install Android API Level 32
+        # 这一步依赖于 runner 上是否有 Android SDK Tools
+        # 对于标准的 'ubuntu-latest' runner，Android SDK Tools 是预装的
+        run: |
+          # 确保 ANDROID_HOME 环境变量设置正确，通常在 runner 上已设置
+          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-32"
 
         # Clone closure-compiler repo from the commit under test into current directory.
       - name: Checkout Current closure-compiler Commit
