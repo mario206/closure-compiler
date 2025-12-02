@@ -61,14 +61,6 @@ jobs:
           # 确保 build-tools 也安装了相应版本（如果需要）
           # build-tools-version: '34.0.0' # 示例，根据您的项目需求调整   
 
-        # 推荐：使用专用的 Action 来安装 Android 组件
-      - name: Install Android API Level 32 automatically
-        uses: r3bl-actions/android-build-tools@v1
-        with:
-          # 只安装我们需要的目标平台
-          android-platforms: '32' 
-          # 或者指定所需的 build-tools 版本
-          # android-build-tools: '34.0.0'
     
         # Clone closure-compiler repo from the commit under test into current directory.
       - name: Checkout Current closure-compiler Commit
