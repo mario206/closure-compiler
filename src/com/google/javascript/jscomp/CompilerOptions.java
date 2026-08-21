@@ -1401,7 +1401,7 @@ public class CompilerOptions implements Serializable {
    * @param removeUnusedClassProperties Whether to attempt to remove unused class properties
    */
   public void setRemoveUnusedClassProperties(boolean removeUnusedClassProperties) {
-    //this.removeUnusedClassProperties = removeUnusedClassProperties;
+    this.removeUnusedClassProperties = removeUnusedClassProperties;
   }
 
   /** Returns the map of define replacements. */
@@ -1483,8 +1483,9 @@ public class CompilerOptions implements Serializable {
    */
   public void setRenamingPolicy(
       VariableRenamingPolicy newVariablePolicy, PropertyRenamingPolicy newPropertyPolicy) {
-    //this.variableRenaming = newVariablePolicy;
-    //this.propertyRenaming = newPropertyPolicy;
+    // Keep original names: ignore requested renaming policies.
+    this.variableRenaming = VariableRenamingPolicy.OFF;
+    this.propertyRenaming = PropertyRenamingPolicy.OFF;
   }
 
   /**
@@ -1531,7 +1532,7 @@ public class CompilerOptions implements Serializable {
 
   /** Set the function inlining policy for the compiler. */
   public void setInlineFunctions(Reach reach) {
-    //this.inlineFunctionsLevel = reach;
+    this.inlineFunctionsLevel = reach;
   }
 
   /** Get the function inlining policy for the compiler. */
@@ -1545,7 +1546,7 @@ public class CompilerOptions implements Serializable {
   }
 
   public void setInlineVariables(boolean inlineVariables) {
-    //this.inlineVariables = inlineVariables;
+    this.inlineVariables = inlineVariables;
   }
 
   /** Set the variable inlining policy for the compiler. */
@@ -1568,7 +1569,7 @@ public class CompilerOptions implements Serializable {
 
   /** Set the function inlining policy for the compiler. */
   public void setInlineProperties(boolean enable) {
-    //inlineProperties = enable;
+    inlineProperties = enable;
   }
 
   public boolean shouldInlineProperties() {
@@ -1577,7 +1578,6 @@ public class CompilerOptions implements Serializable {
 
   /** Set the variable removal policy for the compiler. */
   public void setRemoveUnusedVariables(Reach reach) {
-    /*
     switch (reach) {
       case ALL:
         this.removeUnusedVars = true;
@@ -1591,7 +1591,7 @@ public class CompilerOptions implements Serializable {
         this.removeUnusedVars = false;
         this.removeUnusedLocalVars = false;
         break;
-    }*/
+    }
   }
 
   /** Sets the functions whose debug strings to replace. */
@@ -2040,15 +2040,15 @@ public class CompilerOptions implements Serializable {
   }
 
   public void setFoldConstants(boolean foldConstants) {
-    //this.foldConstants = foldConstants;
+    this.foldConstants = foldConstants;
   }
 
   public void setDeadAssignmentElimination(boolean deadAssignmentElimination) {
-    //this.deadAssignmentElimination = deadAssignmentElimination;
+    this.deadAssignmentElimination = deadAssignmentElimination;
   }
 
   public void setInlineConstantVars(boolean inlineConstantVars) {
-    //this.inlineConstantVars = inlineConstantVars;
+    this.inlineConstantVars = inlineConstantVars;
   }
 
   public void setCrossChunkCodeMotion(boolean crossChunkCodeMotion) {
@@ -2069,11 +2069,11 @@ public class CompilerOptions implements Serializable {
   }
 
   public void setCoalesceVariableNames(boolean coalesceVariableNames) {
-    //this.coalesceVariableNames = coalesceVariableNames;
+    this.coalesceVariableNames = coalesceVariableNames;
   }
 
   public void setInlineLocalVariables(boolean inlineLocalVariables) {
-    //this.inlineLocalVariables = inlineLocalVariables;
+    this.inlineLocalVariables = inlineLocalVariables;
   }
 
   public void setFlowSensitiveInlineVariables(boolean enabled) {
@@ -2092,7 +2092,7 @@ public class CompilerOptions implements Serializable {
   }
 
   public void setRemoveDeadCode(boolean removeDeadCode) {
-    //this.removeDeadCode = removeDeadCode;
+    this.removeDeadCode = removeDeadCode;
   }
 
   public void setExtractPrototypeMemberDeclarations(boolean enabled) {
@@ -2109,22 +2109,22 @@ public class CompilerOptions implements Serializable {
   }
 
   public void setRemoveUnusedPrototypeProperties(boolean enabled) {
-    //this.removeUnusedPrototypeProperties = enabled;
+    this.removeUnusedPrototypeProperties = enabled;
     // InlineSimpleMethods makes similar assumptions to
     // RemoveUnusedCode, so they are enabled together.
-    //this.inlineGetters = enabled;
+    this.inlineGetters = enabled;
   }
 
   public void setCollapseVariableDeclarations(boolean enabled) {
-    //this.collapseVariableDeclarations = enabled;
+    this.collapseVariableDeclarations = enabled;
   }
 
   public void setCollapseAnonymousFunctions(boolean enabled) {
-    //this.collapseAnonymousFunctions = enabled;
+    this.collapseAnonymousFunctions = enabled;
   }
 
   public void setAliasStringsMode(AliasStringsMode aliasStringsMode) {
-    //this.aliasStringsMode = aliasStringsMode;
+    this.aliasStringsMode = aliasStringsMode;
   }
 
   public AliasStringsMode getAliasStringsMode() {
@@ -2136,7 +2136,7 @@ public class CompilerOptions implements Serializable {
   }
 
   public void setConvertToDottedProperties(boolean convertToDottedProperties) {
-    //this.convertToDottedProperties = convertToDottedProperties;
+    this.convertToDottedProperties = convertToDottedProperties;
   }
 
   public void setUseTypesForLocalOptimization(boolean useTypesForLocalOptimization) {
@@ -2168,7 +2168,7 @@ public class CompilerOptions implements Serializable {
   }
 
   public void setRewriteFunctionExpressions(boolean rewriteFunctionExpressions) {
-    //this.rewriteFunctionExpressions = rewriteFunctionExpressions;
+    this.rewriteFunctionExpressions = rewriteFunctionExpressions;
   }
 
   public void setOptimizeCalls(boolean optimizeCalls) {
@@ -2188,16 +2188,17 @@ public class CompilerOptions implements Serializable {
   }
 
   public void setVariableRenaming(VariableRenamingPolicy variableRenaming) {
-    //this.variableRenaming = variableRenaming;
+    // Keep original names.
+    this.variableRenaming = VariableRenamingPolicy.OFF;
   }
 
   public void setPropertyRenaming(PropertyRenamingPolicy propertyRenaming) {
-    this.propertyRenaming = propertyRenaming;
+    // Keep original property names.
+    this.propertyRenaming = PropertyRenamingPolicy.OFF;
   }
 
   public PropertyRenamingPolicy getPropertyRenaming() {
     return PropertyRenamingPolicy.OFF;
-    //return this.propertyRenaming;
   }
 
   public void setLabelRenaming(boolean labelRenaming) {

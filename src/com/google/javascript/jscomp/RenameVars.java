@@ -271,8 +271,7 @@ final class RenameVars implements CompilerPass {
         // Give local variables a temporary name based on the
         // variable's index in the scope to enable name reuse across
         // locals in independent scopes.
-        //String tempName = LOCAL_VAR_PREFIX + getLocalVarIndex(var);
-        String tempName = LOCAL_VAR_PREFIX + var.getName();
+        String tempName = LOCAL_VAR_PREFIX + getLocalVarIndex(var);
         incCount(tempName);
         localNameNodes.add(n);
         // Remember the original string in a name before it's temporarily filled with an "L".
@@ -456,14 +455,12 @@ final class RenameVars implements CompilerPass {
       String newName;
       if (a.isLocal) {
         // For local variable, we make the assignment right away.
-        //newName = localNameGenerator.generateNextName();
-        newName = a.oldName.substring(2); // 前面两位是 LOCAL_VAR_PREFIX
+        newName = localNameGenerator.generateNextName();
         finalizeNameAssignment(a, newName);
       } else {
         // For non-local variable, delay finalizing the name assignment
         // until we know how many new names we'll have of length 2, 3, etc.
-        //newName = globalNameGenerator.generateNextName();
-        newName = a.oldName;
+        newName = globalNameGenerator.generateNextName();
         pendingAssignments.add(a);
         generatedNamesForAssignments.add(newName);
       }
